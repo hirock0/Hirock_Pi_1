@@ -1,0 +1,7 @@
+.commentPopup,.CommentBox{
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+.commentPopup::-webkit-scrollbar,.CommentBox::-webkit-scrollbar{
+    display: none;
+}

@@ -1,101 +1,205 @@
-import Image from "next/image";
-
-export default function Home() {
+import React from "react";
+import { IoFlashOutline } from "react-icons/io5";
+import { CiMobile2 } from "react-icons/ci";
+import { SlSupport } from "react-icons/sl";
+import { GoCheck } from "react-icons/go";
+import Marquee from "react-fast-marquee";
+import TypingText from "@/components/homePage/text_animation/typingText";
+import AllProjects from "@/components/homePage/allProjects/allProjects";
+import { TbBrandHtml5 } from "react-icons/tb";
+import { IoLogoCss3 } from "react-icons/io";
+import { IoLogoJavascript } from "react-icons/io5";
+import { FaReact } from "react-icons/fa";
+import { RiNextjsLine } from "react-icons/ri";
+import { DiMongodb } from "react-icons/di";
+import { TbBrandRedux } from "react-icons/tb";
+const Home = () => {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <main className=" pb-52">
+      <div className="">
+        {/* section_1_start */}
+        <div className=" parallax bg-fixed bg-center lg:bg-top bg-no-repeat bg-cover pt-20 max-sm:pt-10 ">
+          {/* ------------------------------------------ */}
+          <div className="container mx-auto px-5 pb-10 ">
+            <div className=" ">
+              <h1 className="text-center text-7xl max-lg:text-6xl max-md:text-4xl max-sm:text-2xl font-semibold ">
+                All in One
+              </h1>
+              <h1 className=" mt-5 max-sm:mt-0 text-center text-7xl max-lg:text-6xl max-md:text-4xl max-sm:text-2xl font-semibold ">
+                Personal Portfolio for
+              </h1>
+            </div>
+            {/* ----------------- */}
+            <div className=" mt-5 flex justify-center">
+              <TypingText />
+            </div>
+            {/* ---------------------------------------------------------------------------------- */}
+            <div className=" mt-32 max-sm:mt-20 grid grid-cols-3 gap-5 max-lg:grid-cols-2 max-md:grid-cols-1">
+              {/* card_1_start */}
+              <div className=" shadow shadow-slate-600 bg-gradient-to-tl to-slate-800 via-slate-950 from-slate-800 cursor-pointer h-96 bg-base-300 rounded-lg hover:bg-gradient-to-tr hover:to-slate-800 hover:via-slate-950 hover:from-slate-800">
+                <div className=" sm:hover:scale-110 hover:transition-all p-10 w-full h-full ">
+                  <IoFlashOutline size={52} className=" text-red-600" />
+                  <h1 className="  text-2xl mt-5">Fast Performance</h1>
+                  <p className=" text-slate-400 mt-5 max-sm:text-sm">
+                    Optimized for a smaller build size, faster dev compilation
+                    and dozens of other improvements.
+                  </p>
+                </div>
+              </div>
+              {/* card_1_end */}
+              {/* ----------------------- */}
+              {/* card_2_start */}
+              <div className="shadow shadow-slate-600 bg-gradient-to-tl to-slate-800 via-slate-950 from-slate-800 cursor-pointer h-96 bg-base-300 rounded-lg hover:bg-gradient-to-tr hover:to-slate-800 hover:via-slate-950 hover:from-slate-800">
+                <div className=" sm:hover:scale-110 hover:transition-all p-10 w-full h-full ">
+                  <CiMobile2 size={52} className=" text-red-600" />
+                  <h1 className="  text-2xl mt-5">Perfect Responsive</h1>
+                  <p className=" text-slate-400 mt-5 max-sm:text-sm">
+                    Our theme is full Perfect for all device. You can visit our
+                    theme all device easily.
+                  </p>
+                </div>
+              </div>
+              {/* card_2_end */}
+              {/* ------------------------- */}
+              {/* card_3_start */}
+              <div className="shadow shadow-slate-600 bg-gradient-to-tl to-slate-800 via-slate-950 from-slate-800 cursor-pointer h-96 bg-base-300 rounded-lg hover:bg-gradient-to-tr hover:to-slate-800 hover:via-slate-950 hover:from-slate-800">
+                <div className=" sm:hover:scale-110 hover:transition-all p-10 w-full h-full ">
+                  <SlSupport size={52} className=" text-red-600" />
+                  <h1 className="  text-2xl mt-5">Fast & Friendly Support</h1>
+                  <p className=" text-slate-400 mt-5 max-sm:text-sm">
+                    We are provide 24 hours support for all clients.You can
+                    purchase without hesitation.
+                  </p>
+                </div>
+              </div>
+              {/* card_3_end */}
+            </div>
+            {/* -------------------------------------------------------------------------------------------------- */}
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            {/* ----------------------------------------------- */}
+          </div>
+          {/* ---------------------------------------- */}
+          <div className=" mt-20 pb-10 overflow-hidden">
+            <Marquee autoFill pauseOnClick className=" cursor-pointer">
+              <ul className=" flex items-center gap-10  ">
+                <li className=" flex gap-2 items-center ml-10">
+                  <div className=" bg-green-600 rounded-full p-1">
+                    <GoCheck className=" " size={16} />
+                  </div>
+                  <span>Responsive & Retina</span>
+                </li>
+                <li className=" flex gap-2 items-center ">
+                  <div className=" bg-green-600 rounded-full p-1">
+                    <GoCheck className=" " size={16} />
+                  </div>
+                  <span>30+ Custom Elements</span>
+                </li>
+                <li className=" flex gap-2 items-center ">
+                  <div className=" bg-green-600 rounded-full p-1">
+                    <GoCheck className=" " size={16} />
+                  </div>
+                  <span>t’s Super Fast</span>
+                </li>
+                <li className=" flex gap-2 items-center ">
+                  <div className=" bg-green-600 rounded-full p-1">
+                    <GoCheck className=" " size={16} />
+                  </div>
+                  <span>One-click Demo Import</span>
+                </li>
+                <li className=" flex gap-2 items-center ">
+                  <div className=" bg-green-600 rounded-full p-1">
+                    <GoCheck className=" " size={16} />
+                  </div>
+                  <span>Fully Customizable</span>
+                </li>
+                <li className=" flex gap-2 items-center ">
+                  <div className=" bg-green-600 rounded-full p-1">
+                    <GoCheck className=" " size={16} />
+                  </div>
+                  <span>SEO Optimized</span>
+                </li>
+                <li className=" flex gap-2 items-center ">
+                  <div className=" bg-green-600 rounded-full p-1">
+                    <GoCheck className=" " size={16} />
+                  </div>
+                  <span> High Quality Support</span>
+                </li>
+              </ul>
+            </Marquee>
+          </div>
+          {/* -------------------------------------------- */}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        {/* section_1_end */}
+        {/* --------------------------------------- */}
+        {/* section_2_start */}
+        <div id="projects" className=" mt-10 container mx-auto px-5">
+          {/* All_proJect_start */}
+          <AllProjects />
+          {/* All_proJect_end */}
+        </div>
+        {/* section_2_end */}
+        {/* --------------------------------------------- */}
+
+        {/* section_3_start */}
+
+        <div className=" mt-10">
+          <h1 className="  text-center text-4xl max-md:text-3xl max-sm:text-2xl">
+            Skills
+          </h1>
+          <div className=" mt-10 flex items-center  ">
+            {/* -------------------------------------------- */}
+            <div className=" mt-5 overflow-hidden ">
+              <Marquee pauseOnClick>
+                <div className=" flex items-center  lg:gap-36 max-lg:gap-28 max-md:gap-20 max-sm:gap-10">
+                  {/* skill_1_start */}
+                  <div className=" overflow-hidden cursor-pointer h-52 w-52 bg-gradient-to-tr to-cyan-950 via-zinc-950 from-slate-900 shadow shadow-slate-600 rounded-lg lg:ml-36 max-lg:ml-28 max-md:ml-20 max-sm:ml-10">
+                    <TbBrandHtml5 className=" scale-image w-full h-full text-red-600" />
+                  </div>
+                  {/* skill_1_end */}
+                  {/* skill_2_start */}
+                  <div className=" cursor-pointer h-52 w-52 bg-gradient-to-tr to-cyan-950 via-zinc-950 from-slate-900 shadow shadow-slate-600 rounded-lg">
+                    <IoLogoCss3 className=" w-full h-full text-cyan-600" />
+                  </div>
+                  {/* skill_2_end */}
+                  {/* skill_3_start */}
+                  <div className=" overflow-hidden  cursor-pointer h-52 w-52 bg-gradient-to-tr to-cyan-950 via-zinc-950 from-slate-900 shadow shadow-slate-600 rounded-lg">
+                    <IoLogoJavascript className=" scale-image w-full h-full text-yellow-600" />
+                  </div>
+                  {/* skill_3_end */}
+                  {/* skill_4_start */}
+                  <div className=" overflow-hidden  cursor-pointer h-52 w-52 bg-gradient-to-tr to-cyan-950 via-zinc-950 from-slate-900 shadow shadow-slate-600 rounded-lg">
+                    <FaReact className=" rotating-image w-full h-full text-cyan-400" />
+                  </div>
+                  {/* skill_4_end */}
+
+                  {/* skill_5_start */}
+                  <div className=" overflow-hidden cursor-pointer h-52 w-52 bg-gradient-to-tr to-cyan-950 via-zinc-950 from-slate-900 shadow shadow-slate-600 rounded-lg">
+                    <RiNextjsLine className=" scale-image w-full h-full text-red-600" />
+                  </div>
+                  {/* skill_5_end */}
+
+                  {/* skill_6_start */}
+                  <div className=" cursor-pointer h-52 w-52 bg-gradient-to-tr to-cyan-950 via-zinc-950 from-slate-900 shadow shadow-slate-600 rounded-lg">
+                    <DiMongodb className=" w-full h-full text-green-400" />
+                  </div>
+                  {/* skill_6_end */}
+
+                  {/* skill_7_start */}
+                  <div className=" overflow-hidden  cursor-pointer h-52 w-52 bg-gradient-to-tr to-cyan-950 via-zinc-950 from-slate-900 shadow shadow-slate-600 rounded-lg">
+                    <TbBrandRedux className=" rotating-image w-full h-full text-purple-600" />
+                  </div>
+                  {/* skill_7_end */}
+                </div>
+              </Marquee>
+            </div>
+
+            {/* --------------------------------------------- */}
+          </div>
+        </div>
+        {/* section_3_end */}
+      </div>
+    </main>
   );
-}
+};
+
+export default Home;

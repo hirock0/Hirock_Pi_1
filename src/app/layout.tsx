@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Nav from "@/components/nav/nav";
+import Footer from "@/components/footer/footer";
+import { Poppins } from "next/font/google";
+import ReduxProvider from "@/utils/redux/ReduxProvider";
+import { Toaster } from "react-hot-toast";
+import NextAuthProvider from "@/nextAuthProviderContext/provider";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const poppins = Poppins({
+  weight: ["400", "400"],
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -24,12 +24,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+    <html lang="en" data-theme="dark">
+      <ReduxProvider>
+        <NextAuthProvider>
+          <body className={`${poppins.className}`}>
+            <Toaster
+              toastOptions={{
+                style: {
+                  background: "rgb(0, 155, 255)",
+                  color: "white",
+                },
+              }}
+            />
+            <Nav />
+            {children}
+            <Footer />
+          </body>
+        </NextAuthProvider>
+      </ReduxProvider>
     </html>
   );
 }

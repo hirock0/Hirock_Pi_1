@@ -1,0 +1,10 @@
+.NavRightUl>li{
+    @apply lg:hover:underline lg:hover:underline-offset-8
+}
+.SideNav{
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
+  }
+.SideNav::-webkit-scrollbar{
+    display: none;
+}
