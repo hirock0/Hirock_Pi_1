@@ -65,11 +65,31 @@ export const authOption: AuthOptions = {
               country: "",
             },
             educations: {
-              ssc: "",
-              hsc: "",
-              ba: "",
-              ma: "",
-              another: "",
+              ssc: {
+                institution: "",
+                result: "",
+                passingYear: "",
+              },
+              hsc: {
+                institution: "",
+                result: "",
+                passingYear: "",
+              },
+              ba: {
+                institution: "",
+                result: "",
+                passingYear: "",
+              },
+              ma: {
+                institution: "",
+                result: "",
+                passingYear: "",
+              },
+              another: {
+                institution: "",
+                result: "",
+                passingYear: "",
+              },
             },
             contact: "",
             recentDate: new Date().toLocaleDateString(),

@@ -56,7 +56,7 @@ const Nav_details: React.FC<Props> = (user) => {
       <ul
         className={`${Style.navUl}  flex max-lg:flex-col max-lg:gap-5 max-lg:items-start lg:items-center lg:gap-5`}
       >
-        <Link href={""}>
+        <Link href={"/"}>
           <motion.li
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -65,6 +65,7 @@ const Nav_details: React.FC<Props> = (user) => {
             Home
           </motion.li>
         </Link>
+
         <Link href={"/info/education"}>
           <motion.li
             initial={{ opacity: 0, scale: 0 }}
