@@ -3,6 +3,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { FaRegEdit } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import axios from "axios";
 interface FormDataType {
   userId: string;
@@ -56,9 +57,19 @@ const EducationPage = () => {
     // -----------------------
   });
 
-  const onEducation = async (data: any) => {
-    console.log(data);
-    const response = await axios.post("/pages/api/user/profileUpdate", data);
+  const onEducation: SubmitHandler<FormDataType> = async (data) => {
+    try {
+      data.userId = editValue.userId;
+      const response = await axios.post("/pages/api/user/profileUpdate", data);
+      if (response?.data?.success) {
+        toast.success("Update successful!");
+        setTimeout(() => {
+          setEditFlag2(false);
+        }, 1000);
+      }
+    } catch (error: any) {
+      throw new Error(error);
+    }
   };
 
   const onLoggedUser = async () => {
@@ -66,6 +77,7 @@ const EducationPage = () => {
       const request = await axios.get("/pages/api/token");
       const loggedUserData = request?.data?.findUser;
       const Educations = loggedUserData?.educations;
+
       setEditValue({
         ...editValue,
         userId: loggedUserData?._id,
@@ -98,7 +110,7 @@ const EducationPage = () => {
   return (
     <div className=" w-full">
       <form
-        onSubmit={handleSubmit((data) => onEducation(data))}
+        onSubmit={handleSubmit((data: FormDataType) => onEducation(data))}
         className="container mx-auto px-5 mt-5  w-full bg-zinc-200 p-5 rounded-md shadow"
       >
         <div className=" w-full flex justify-between">
@@ -416,6 +428,7 @@ const EducationPage = () => {
 
         <div className=" w-full flex items-center justify-center mt-5  ">
           <button
+            type="submit"
             disabled={!editFlag2 ? true : false}
             className={`${
               !editFlag2 ? " opacity-50" : " opacity-100"

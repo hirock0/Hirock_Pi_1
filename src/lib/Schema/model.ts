@@ -6,6 +6,9 @@ const userSchema = new mongoose.Schema({
   password: { type: String, ref: "password", required: false },
   userImage: { type: String, ref: "userImage", required: false },
   image_public_id: { type: String, ref: "mage_public_id", required: false },
+
+  descriptions: { type: String, ref: "descriptions", required: false },
+
   address: {
     villageOrTown: { type: String, ref: "villageOrTown", required: false },
     postOffice: { type: String, ref: "postOffice", required: false },

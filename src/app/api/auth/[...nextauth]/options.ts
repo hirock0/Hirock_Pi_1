@@ -64,6 +64,7 @@ export const authOption: AuthOptions = {
               postCode: "",
               country: "",
             },
+            descriptions: "",
             educations: {
               ssc: {
                 institution: "",

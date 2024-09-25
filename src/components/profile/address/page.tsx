@@ -60,7 +60,9 @@ const AddressPage = () => {
       const request = await axios.post("/pages/api/user/profileUpdate", data);
       if (request?.data?.success) {
         toast.success("Update successful!");
-        setEditFlag(false);
+        setTimeout(() => {
+          setEditFlag(false);
+        }, 1000);
       }
     } catch (error: any) {
       throw new Error(error);
@@ -192,6 +194,7 @@ const AddressPage = () => {
         </div>
         <div className=" w-full flex items-center justify-center mt-5  ">
           <button
+            type="submit"
             disabled={!editFlag ? true : false}
             className={`${
               !editFlag ? " opacity-50" : " opacity-100"
