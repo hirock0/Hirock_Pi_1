@@ -3,210 +3,102 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { AllApiHandler } from "@/utils/redux/Slices/slice";
 import Image from "next/image";
-import { FaRegEdit } from "react-icons/fa";
-import { useForm, SubmitHandler } from "react-hook-form";
-import axios from "axios";
+import EducationPage from "@/components/profile/Education/page";
+import AddressPage from "@/components/profile/address/page";
 
-interface FormDataType {
-  userId: string;
-  villageOrTown: string;
-  postOffice: string;
-  thana: string;
-  district: string;
-  postCode: string;
-  country: string;
-}
 const ProfilePage = () => {
+  const [description, setDescription] = useState(false);
+
   const dispatch = useDispatch();
-
-  const {
-    register,
-    reset,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormDataType>();
-  const [editFlag, setEditFlag] = useState(false);
-  const [editValue, setEditValue] = useState({
-    userId: "",
-    villageOrTown: "",
-    postOffice: "",
-    thana: "",
-    district: "",
-    postCode: "",
-    country: "",
-  });
-
   const reqApi = useSelector((state: any) => state?.Slice?.data);
   const loggedUser = reqApi?.loggedUser;
-  const onEditAbleData: SubmitHandler<FormDataType> = async (data) => {
-    try {
-      data.userId = editValue.userId;
-      const request = await axios.post("/pages/api/user/profileUpdate", data);
-    } catch (error: any) {
-      throw new Error(error);
-    }
-  };
 
-  const onLoggedUser = async () => {
-    try {
-      const request = await axios.get("/pages/api/token");
-      const loggedUserData = request?.data?.findUser;
-      const address = loggedUserData?.address;
-      setEditValue({
-        ...editValue,
-        userId: loggedUserData?._id,
-        villageOrTown: address?.villageOrTown,
-        postOffice: address?.postOffice,
-        thana: address?.thana,
-        district: address?.district,
-        postCode: address?.postCode,
-        country: address?.country,
-      });
-    } catch (error: any) {
-      throw new Error(error);
-    }
-  };
   useEffect(() => {
-    onLoggedUser();
     dispatch(AllApiHandler());
   }, []);
   return (
-    <main className=" bg-slate-100 text-black">
-      <div className=" pt-20 container mx-auto px-5">
+    <main className=" bg-white text-black">
+      <div className=" ">
         {/* --------------------- */}
-        <div className=" flex flex-col items-center justify-center">
-          {/* profile_image_start */}
-          <div className=" h-32 w-32 rounded-full overflow-hidden">
-            <Image
-              src={loggedUser?.userImage}
-              alt="user"
-              width={500}
-              height={500}
-            />
-          </div>
-          {/* profile_image_end */}
+        <div className="   pb-5 flex flex-col items-center justify-center">
+          <div className=" container mx-auto p-5 mt-5 max-sm:mt-0  rounded-md bg-zinc-200 shadow">
+            <div className=" flex max-sm:flex-col border-b border-b-slate-400 pb-5  ">
+              <div className="w-1/2 max-sm:w-full max-sm:flex max-sm:flex-col max-sm:items-center">
+                {/* profile_image_start */}
+                <div className=" h-32 w-32 max-sm:w-20 max-sm:h-20 rounded-full overflow-hidden">
+                  <Image
+                    src={loggedUser?.userImage}
+                    alt="user"
+                    width={500}
+                    height={500}
+                  />
+                </div>
+                {/* profile_image_end */}
 
-          <h1 className=" mt-5">{loggedUser?.userName}</h1>
-          <h1 className="">{loggedUser?.email}</h1>
+                <h1 className=" mt-5">{loggedUser?.userName}</h1>
+                <h1 className="">{loggedUser?.email}</h1>
+              </div>
+              <div className="w-1/2 max-sm:w-full max-sm:mt-5 max-sm:p-5 max-sm:flex max-sm:flex-col max-sm:items-center ">
+                <ul className=" list-disc flex flex-col gap-2">
+                  <li>Motivation will almost always beat mere talent.</li>
+                  <li>
+                    Let me tell you the secret that has led me to my goals: my
+                    strength lies solely in my tenacity.
+                  </li>
+                  <li>Dreams are lovely.</li>
+                  <li>
+                    You may encounter many defeats, but you must not be
+                    defeated.
+                  </li>
+                  <li>Obstacles can't stop you.</li>
+                  <li>Always do your best.</li>
+                </ul>
+              </div>
+            </div>
+            {/* description_start */}
+            {!description ? (
+              <div className=" mt-5">
+                <h1>Write your descriptions</h1>
+                <form action="" className=" w-full">
+                  <textarea
+                    name="descriptions"
+                    className=" border bg-white w-1/2 h-32 rounded-md shadow  max-sm:w-full outline-none pl-2 pt-2"
+                    placeholder="write descriptions"
+                  ></textarea>
+                  <div className="">
+                    <button
+                      className={`  bg-gradient-to-tl to-red-400 via-red-600 from-red-400 h-12 rounded-md shadow-lg hover:scale-105 active:scale-95  w-1/2 max-sm:w-full text-white`}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
+            ) : (
+              <div className="mt-5 container mx-auto p-5">
+                <h1 className=" text-xl max-sm:text-base font-semibold">
+                  Descriptions:
+                </h1>
+                <p className=" mt-2 max-sm:text-sm opacity-80">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero
+                  maxime earum totam laboriosam voluptas voluptate quos
+                  voluptatum? Delectus voluptas exercitationem, amet vitae
+                  cumque, modi sunt, consequatur facere ullam ab dignissimos!
+                </p>
+              </div>
+            )}
+
+            {/* description_end */}
+          </div>
         </div>
         {/* ---------------------------- */}
 
-        <div className=" mt-10 pb-20 flex flex-col items-center">
-          <div className=" w-full flex justify-end">
-            <button onClick={() => setEditFlag(!editFlag)}>
-              <FaRegEdit size={25} />
-            </button>
-          </div>
-          <form
-            onSubmit={handleSubmit((data: FormDataType) =>
-              onEditAbleData(data)
-            )}
-            className=" w-full"
-          >
-            <div className=" w-full mt-5 grid grid-cols-3 gap-10 max-md:grid-cols-2 max-sm:grid-cols-1">
-              <div className=" w-full">
-                <h1>Village/Town</h1>
-                <input
-                  readOnly={!editFlag ? true : false}
-                  {...register("villageOrTown", { required: "Need to fill" })}
-                  value={editValue?.villageOrTown}
-                  onChange={(e) =>
-                    setEditValue({
-                      ...editValue,
-                      villageOrTown: e.target.value,
-                    })
-                  }
-                  type="text"
-                  name="villageOrTown"
-                  className=" mt-2 bg-transparent border bg-white shadow-md shadow-slate-300 h-14 rounded-md focus:h-16 outline-none text-black pl-2 w-full"
-                />
-                {errors.villageOrTown && errors.villageOrTown.message}
-              </div>
-              <div className="">
-                <h1>Post Office</h1>
-                <input
-                  readOnly={!editFlag ? true : false}
-                  {...register("postOffice", { required: "Need to fill" })}
-                  value={editValue?.postOffice}
-                  onChange={(e) =>
-                    setEditValue({ ...editValue, postOffice: e.target.value })
-                  }
-                  type="text"
-                  name="postOffice"
-                  className=" mt-2 bg-transparent border bg-white shadow-md shadow-slate-300 h-14 rounded-md focus:h-16 outline-none text-black pl-2 w-full"
-                />
-                {errors.postOffice && errors.postOffice.message}
-              </div>
-              <div className="">
-                <h1>Thana</h1>
-                <input
-                  readOnly={!editFlag ? true : false}
-                  {...register("thana", { required: "Need to fill" })}
-                  value={editValue?.thana}
-                  onChange={(e) =>
-                    setEditValue({ ...editValue, thana: e.target.value })
-                  }
-                  type="text"
-                  name="thana"
-                  className=" mt-2 bg-transparent border bg-white shadow-md shadow-slate-300 h-14 rounded-md focus:h-16 outline-none text-black pl-2 w-full"
-                />
-                {errors.thana && errors.thana.message}
-              </div>
-              <div className="">
-                <h1>District</h1>
-                <input
-                  readOnly={!editFlag ? true : false}
-                  {...register("district", { required: "Need to fill" })}
-                  value={editValue?.district}
-                  onChange={(e) =>
-                    setEditValue({ ...editValue, district: e.target.value })
-                  }
-                  type="text"
-                  name="district"
-                  className=" mt-2 bg-transparent border bg-white shadow-md shadow-slate-300 h-14 rounded-md focus:h-16 outline-none text-black pl-2 w-full"
-                />
-                {errors.district && errors.district.message}
-              </div>
-              <div className="">
-                <h1>Post Code</h1>
-                <input
-                  readOnly={!editFlag ? true : false}
-                  {...register("postCode", { required: "Need to fill" })}
-                  value={editValue?.postCode}
-                  onChange={(e) =>
-                    setEditValue({ ...editValue, postCode: e.target.value })
-                  }
-                  type="text"
-                  name="postCode"
-                  className=" mt-2 bg-transparent border bg-white shadow-md shadow-slate-300 h-14 rounded-md focus:h-16 outline-none text-black pl-2 w-full"
-                />
-                {errors.postCode && errors.postCode.message}
-              </div>
-              <div className="">
-                <h1>Country</h1>
-                <input
-                  readOnly={!editFlag ? true : false}
-                  {...register("country", { required: "Need to fill" })}
-                  value={editValue?.country}
-                  onChange={(e) =>
-                    setEditValue({ ...editValue, country: e.target.value })
-                  }
-                  type="text"
-                  name="country"
-                  className=" mt-2 bg-transparent border bg-white shadow-md shadow-slate-300 h-14 rounded-md focus:h-16 outline-none text-black pl-2 w-full"
-                />
-                {errors.country && errors.country.message}
-              </div>
-            </div>
-            <div className=" w-full flex items-center justify-center mt-5  ">
-              <button
-                disabled={!editFlag ? true : false}
-                className=" btn btn-primary w-1/2 max-sm:w-full"
-              >
-                Submit
-              </button>
-            </div>
-          </form>
+        {/* ---------------------------- */}
+        <div className="   pb-20 flex flex-col items-center">
+          <AddressPage />
+          {/* ---------------------------------------------------------------------------------------------------------- */}
+          <EducationPage />
+          {/* ------------------------------------------------------------------------ */}
         </div>
         {/* ------------------- */}
       </div>
