@@ -1,6 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+
+const Educations = [
+  {
+    id: 0,
+    title: "C.V",
+    link: "/info/education/resume",
+  },
+];
 
 const educationData = [
   {
@@ -22,35 +32,51 @@ const educationData = [
 
 export default function Education() {
   return (
-    <div className="min-h-screen py-10 bg-gray-100">
-      <div className="max-w-4xl mx-auto px-4">
-        <motion.h1
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-4xl font-bold text-center mb-8 text-gray-900"
-        >
-          Education
-        </motion.h1>
+    <main className=" bg-white text-black">
+      <div className="p-5">
+        <div className="  bg-red-50 container mx-auto px-5">
+          <div className=" flex justify-between p-5 pt-20">
+            {/* ---------------------------- */}
+            <div className=" grid grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 w-full">
+              {Educations.map((item: any, index: any) => (
+                <Link href={item.link} key={index} target="_blank">
+                  <motion.div
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: index, duration: index }}
+                    className=" flex flex-col items-center"
+                  >
+                    {/* btn-start */}
+                    <div className="cursor-pointer rounded-full shadow-lg shadow-yellow-600">
+                      <div className=" group  relative w-32 h-52 rounded-full overflow-hidden bg-white p-2 flex items-center justify-center ">
+                        <div className="absolute flex items-center justify-center w-full h-full bg-slate-800/80 active:bg-slate-800/40 invisible group-hover:visible transition-all  ">
+                          <h1 className="  text-red-500 text-xl font-extrabold  ">
+                            Open
+                          </h1>
+                        </div>
+                        <Image
+                          src={"/background_images/education_imag_1.jpg"}
+                          alt="me"
+                          width={500}
+                          height={500}
+                          priority
+                          className=" h-full object-cover w-full rounded-full"
+                        />
+                      </div>
+                    </div>
+                    {/* btn-end */}
+                    <h1 className=" mt-5 text-xl font-extrabold">
+                      {item.title}
+                    </h1>
+                  </motion.div>
+                </Link>
+              ))}
+            </div>
 
-        {educationData.map((edu, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.2 }}
-            className="bg-white rounded-lg shadow-md p-6 mb-6"
-          >
-            <h2 className="text-2xl font-semibold text-gray-800">
-              {edu.degree}
-            </h2>
-            <p className="text-gray-600">
-              {edu.institution} | {edu.year}
-            </p>
-            <p className="mt-2 text-gray-500">{edu.description}</p>
-          </motion.div>
-        ))}
+            {/* -------------------------------------------- */}
+          </div>
+        </div>
       </div>
-    </div>
+    </main>
   );
 }

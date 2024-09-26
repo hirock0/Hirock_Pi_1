@@ -11,7 +11,10 @@ interface FormDataType {
   descriptions: string;
 }
 const Descriptions = () => {
-  const [description, setDescription] = useState({ descriptions: "" });
+  const [description, setDescription] = useState({
+    userId: "",
+    descriptions: "",
+  });
   const [editFlag, setEditFlag] = useState<boolean>(false);
 
   const {
@@ -23,7 +26,14 @@ const Descriptions = () => {
 
   const onDesCriptions: SubmitHandler<FormDataType> = async (data) => {
     try {
-      console.log(data);
+      data.userId = description.userId;
+      const request = await axios.post("/pages/api/user/profileUpdate", data);
+      if (request?.data?.success) {
+        toast.success("Update successful!");
+        setTimeout(() => {
+          setEditFlag(false);
+        }, 1000);
+      }
     } catch (error: any) {
       throw new Error(error);
     }
@@ -35,6 +45,7 @@ const Descriptions = () => {
       const loggedUserData = request?.data?.findUser;
       setDescription({
         ...description,
+        userId: loggedUserData?._id,
         descriptions: loggedUserData?.descriptions,
       });
     } catch (error: any) {
@@ -53,12 +64,24 @@ const Descriptions = () => {
 
   return (
     <div className="px-5 pb-10">
-      {loggedUser?.descriptions == "" ? (
-        <div className=" mt-5">
+      <div className=" mt-5">
+        <div className=" flex items-center justify-between">
           <h1 className=" text-xl max-sm:text-base font-semibold">
-            Write your descriptions:
+            Descriptions:
           </h1>
+          <button onClick={() => setEditFlag(!editFlag)}>
+            <FaRegEdit
+              size={25}
+              className={`${!editFlag ? "text-red-600" : "text-red-300"}`}
+            />
+          </button>
+        </div>
 
+        {description?.descriptions !== "" && !editFlag? (
+          <p className=" mt-2 max-sm:text-sm opacity-80 pr-10">
+            {description?.descriptions}
+          </p>
+        ) : (
           <form
             onSubmit={handleSubmit((data: FormDataType) =>
               onDesCriptions(data)
@@ -94,25 +117,8 @@ const Descriptions = () => {
               </button>
             </div>
           </form>
-        </div>
-      ) : (
-        <div className="mt-5  container mx-auto p-5">
-          <div className="">
-            <div className=" flex items-center justify-between">
-              <h1 className=" text-xl max-sm:text-base font-semibold">
-                Descriptions:
-              </h1>
-              <FaRegEdit
-                size={25}
-                className={`${!editFlag ? "text-red-600" : "text-red-300"}`}
-              />
-            </div>
-            <p className=" mt-2 max-sm:text-sm opacity-80">
-              {description?.descriptions}
-            </p>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
