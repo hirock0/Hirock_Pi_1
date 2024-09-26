@@ -14,7 +14,6 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-
 interface Props {
   user: object | any;
 }
@@ -22,8 +21,6 @@ interface Props {
 const Nav_details: React.FC<Props> = (user) => {
   const router = useRouter();
   const NextAuthSession = useSession();
-
-
 
   const logOut = async () => {
     try {
@@ -45,12 +42,6 @@ const Nav_details: React.FC<Props> = (user) => {
     }
   };
 
-
-
-  
-
-
-
   return (
     <div className=" max-lg:p-5">
       <ul
@@ -70,7 +61,7 @@ const Nav_details: React.FC<Props> = (user) => {
           <motion.li
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
+            transition={{ duration: 0.7, delay: 0.7 }}
           >
             Educations
           </motion.li>
@@ -88,12 +79,23 @@ const Nav_details: React.FC<Props> = (user) => {
           <motion.li
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 1 }}
+            transition={{ duration: 0.7, delay: 0.7 }}
           >
             Contacts
           </motion.li>
         </Link>
 
+        {user?.user?.email !== "hirockdutta0@gmail.com" ? null : (
+          <Link href={"/admin/upload_projects"}>
+            <motion.li
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 1 }}
+            >
+              Admin
+            </motion.li>
+          </Link>
+        )}
         <span
           className={`max-lg:${user?.user !== undefined ? "hidden" : "block"}`}
         >

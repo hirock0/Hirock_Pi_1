@@ -20,7 +20,7 @@ export async function middleware(request: NextRequest) {
 
   if (
     (token?.email || customTokendecoded?.email) !== "hirockdutta0@gmail.com" &&
-    url.pathname.startsWith("/admin")
+    url.pathname.startsWith("/admin/upload_projects")
   ) {
     return NextResponse.rewrite(new URL("/", request.url));
   }
