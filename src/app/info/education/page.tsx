@@ -39,7 +39,7 @@ export default function Education() {
             {/* ---------------------------- */}
             <div className=" grid grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 w-full">
               {Educations.map((item: any, index: any) => (
-                <Link href={item.link} key={index} target="_blank">
+                <Link href={item.link} key={index}>
                   <motion.div
                     initial={{ scale: 0, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
