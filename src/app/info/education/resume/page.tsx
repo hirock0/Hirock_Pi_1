@@ -43,14 +43,13 @@ const ResumePage = () => {
             >
               {/* --------------- */}
               <div className="  flex justify-end items-center w-full  ">
-                <button
-                  className=" bg-red-600 px-5 max-sm:px-2 py-3 max-sm:py-2 max-sm:text-sm rounded-md  hover:bg-red-700 active:bg-red-800"
-                  onClick={(e) => {
-                    e.stopPropagation(), setShowModal(true);
-                  }}
+                <a
+                  href={"/education/hirock_resume.pdf"}
+                  download
+                  className="bg-red-600 px-5 max-sm:px-2 py-3 max-sm:py-2 max-sm:text-sm rounded-md  hover:bg-red-700 active:bg-red-800 "
                 >
                   Download PDF
-                </button>
+                </a>
               </div>
               {/* ------------------ */}
               <Link
@@ -128,14 +127,6 @@ const ResumePage = () => {
           </div>
         </motion.div>
       </div>
-      <ModalPage
-        showModal={showModal}
-        setShowModal={setShowModal}
-        InnerHtmlData={{
-          downLoadPdf:
-            "<h1>Download PDF",
-        }}
-      />
     </main>
   );
 };
