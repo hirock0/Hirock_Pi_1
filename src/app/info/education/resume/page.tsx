@@ -132,8 +132,8 @@ const ResumePage = () => {
         showModal={showModal}
         setShowModal={setShowModal}
         InnerHtmlData={{
-          pdfLink:
-            "  <a href={'/education/hirock_resume.pdf'} download className=' '> Download PDF</a>",
+          downLoadPdf:
+            "<h1>Download PDF",
         }}
       />
     </main>

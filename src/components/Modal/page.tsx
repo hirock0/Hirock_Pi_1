@@ -48,6 +48,7 @@ const ModalPage = ({ showModal, setShowModal, InnerHtmlData }: any) => {
   const Loading = {
     loading: `<div className="${BtnStyle.className}">loading...</div>`,
   };
+
   useEffect(() => {
     windowEvent();
   }, []);
@@ -66,10 +67,12 @@ const ModalPage = ({ showModal, setShowModal, InnerHtmlData }: any) => {
         {/* --------------------------------- */}
         <div className=" h-5/6 w-full">
           {/* ----------------------------- */}
-          {InnerHtmlData.pdfLink && (
+          {InnerHtmlData.downLoadPdf && (
             <div
               className={`${BtnStyle.className}`}
-              dangerouslySetInnerHTML={{ __html: InnerHtmlData.pdfLink }}
+              dangerouslySetInnerHTML={{
+                __html: `<a href={'/education/hirock_resume.pdf'} download className="${BtnStyle}">${InnerHtmlData.downLoadPdf}</a>`,
+              }}
             />
           )}
           {/* ---------------------------------- */}
