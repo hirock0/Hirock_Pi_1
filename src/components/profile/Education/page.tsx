@@ -27,6 +27,7 @@ interface FormDataType {
 }
 
 const EducationPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     reset,
@@ -58,6 +59,7 @@ const EducationPage = () => {
   });
 
   const onEducation: SubmitHandler<FormDataType> = async (data) => {
+    setIsLoading(true);
     try {
       data.userId = editValue.userId;
       const response = await axios.post("/pages/api/user/profileUpdate", data);
@@ -65,6 +67,7 @@ const EducationPage = () => {
         toast.success("Update successful!");
         setTimeout(() => {
           setEditFlag2(false);
+          setIsLoading(false);
         }, 1000);
       }
     } catch (error: any) {
@@ -114,7 +117,7 @@ const EducationPage = () => {
         className="container mx-auto px-5 mt-5  w-full bg-zinc-200 p-5 rounded-md shadow"
       >
         <div className=" w-full flex justify-between">
-          <h1>Education:</h1>
+          <h1>Education:(Optional)</h1>
           <div
             className=" cursor-pointer"
             onClick={() => setEditFlag2(!editFlag2)}
@@ -432,9 +435,13 @@ const EducationPage = () => {
             disabled={!editFlag2 ? true : false}
             className={`${
               !editFlag2 ? " opacity-50" : " opacity-100"
-            }  bg-gradient-to-tl to-red-400 via-red-600 from-red-400 h-12 rounded-md shadow-lg hover:scale-105 active:scale-95  w-1/2 max-sm:w-full text-white`}
+            } flex items-center justify-center  bg-gradient-to-tl to-red-400 via-red-600 from-red-400 h-12 rounded-md shadow-lg hover:scale-105 active:scale-95  w-1/2 max-sm:w-full text-white`}
           >
-            Submit
+            {!isLoading ? (
+              "Submit"
+            ) : (
+              <div className=" loading loading-sm"></div>
+            )}
           </button>
         </div>
       </form>

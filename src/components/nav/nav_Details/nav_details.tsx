@@ -8,40 +8,15 @@ import { CiSettings } from "react-icons/ci";
 import { IoIosLogOut } from "react-icons/io";
 import { CiLogin } from "react-icons/ci";
 import { RxDashboard } from "react-icons/rx";
-import { useSession } from "next-auth/react";
-import { signOut } from "next-auth/react";
-import toast from "react-hot-toast";
-import axios from "axios";
-import { useRouter } from "next/navigation";
+import ModalPage from "@/components/Modal/page";
+import { useState } from "react";
 
 interface Props {
   user: object | any;
 }
 
 const Nav_details: React.FC<Props> = (user) => {
-  const router = useRouter();
-  const NextAuthSession = useSession();
-
-  const logOut = async () => {
-    try {
-      if (NextAuthSession?.status == "authenticated") {
-        signOut({ redirect: true, callbackUrl: "/ " });
-        toast.success("auth Logout successful!");
-      } else {
-        const logout = await axios.get("/pages/api/user/logout");
-        if (logout?.data.success) {
-          toast.success("Logout successful!");
-          router.push("/");
-          router.refresh();
-        } else {
-          toast.success("Logout not successful!");
-        }
-      }
-    } catch (error: any) {
-      throw new Error(error);
-    }
-  };
-
+  const [showModal, setShowModal] = useState<boolean>(false);
   return (
     <div className=" max-lg:p-5">
       <ul
@@ -203,12 +178,12 @@ const Nav_details: React.FC<Props> = (user) => {
                 </motion.li>
               ) : null}
               {user?.user ? (
-                <li
-                  onClick={() => {
-                    logOut();
-                  }}
-                >
-                  <button>
+                <li>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation(), setShowModal(true);
+                    }}
+                  >
                     <IoIosLogOut size={25} className=" " />
                     <div className="">Logout</div>
                   </button>
@@ -220,6 +195,11 @@ const Nav_details: React.FC<Props> = (user) => {
           </div>
         </span>
       </ul>
+      <ModalPage
+        showModal={showModal}
+        setShowModal={setShowModal}
+        InnerHtmlData={{ logout: `<button>Logout</button>` }}
+      />
     </div>
   );
 };

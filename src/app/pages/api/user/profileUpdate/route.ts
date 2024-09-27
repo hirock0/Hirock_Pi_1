@@ -15,6 +15,7 @@ export async function POST(request: NextRequest) {
       postCode,
       country,
       descriptions,
+      contact,
 
       // --------------------------
       ssc_institution,
@@ -33,7 +34,6 @@ export async function POST(request: NextRequest) {
       ma_result,
       ma_passingYear,
       // -----------------------
-
     } = reqBody;
 
     const address = {
@@ -67,25 +67,44 @@ export async function POST(request: NextRequest) {
       },
     };
 
-
-    if (address.district == undefined && descriptions == undefined) {
+    if (
+      address.district == undefined &&
+      descriptions == undefined &&
+      contact == undefined
+    ) {
       const findUser = await UserSchemaStr.findByIdAndUpdate(
         { _id: userId },
         { educations: educations }
       );
       await findUser.save();
-    }
-    else if(educations.hsc.institution == undefined && descriptions == undefined) {
+    } else if (
+      educations.hsc.institution == undefined &&
+      descriptions == undefined &&
+      contact == undefined
+    ) {
       const findUser = await UserSchemaStr.findByIdAndUpdate(
         { _id: userId },
         { address: address }
       );
       await findUser.save();
-    }
-    else if(educations.hsc.institution == undefined && address.district == undefined){
+    } else if (
+      educations.hsc.institution == undefined &&
+      address.district == undefined &&
+      contact == undefined
+    ) {
       const findUser = await UserSchemaStr.findByIdAndUpdate(
         { _id: userId },
         { descriptions: descriptions }
+      );
+      await findUser.save();
+    } else if (
+      educations.hsc.institution == undefined &&
+      address.district == undefined &&
+      descriptions == undefined
+    ) {
+      const findUser = await UserSchemaStr.findByIdAndUpdate(
+        { _id: userId },
+        { contact: contact }
       );
       await findUser.save();
     }

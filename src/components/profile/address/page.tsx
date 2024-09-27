@@ -15,6 +15,7 @@ interface FormDataType {
   country: string;
 }
 const AddressPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [editValue, setEditValue] = useState({
     userId: "",
     villageOrTown: "",
@@ -55,6 +56,7 @@ const AddressPage = () => {
   };
 
   const onEditAbleData: SubmitHandler<FormDataType> = async (data) => {
+    setIsLoading(true);
     try {
       data.userId = editValue.userId;
       const request = await axios.post("/pages/api/user/profileUpdate", data);
@@ -62,6 +64,7 @@ const AddressPage = () => {
         toast.success("Update successful!");
         setTimeout(() => {
           setEditFlag(false);
+          setIsLoading(false);
         }, 1000);
       }
     } catch (error: any) {
@@ -198,9 +201,13 @@ const AddressPage = () => {
             disabled={!editFlag ? true : false}
             className={`${
               !editFlag ? " opacity-50" : " opacity-100"
-            }  bg-gradient-to-tl to-red-400 via-red-600 from-red-400 h-12 rounded-md shadow-lg hover:scale-105 active:scale-95  w-1/2 max-sm:w-full text-white`}
+            } flex items-center justify-center bg-gradient-to-tl to-red-400 via-red-600 from-red-400 h-12 rounded-md shadow-lg hover:scale-105 active:scale-95  w-1/2 max-sm:w-full text-white`}
           >
-            Submit
+            {!isLoading ? (
+              "Submit"
+            ) : (
+              <div className=" loading loading-sm"></div>
+            )}
           </button>
         </div>
       </form>

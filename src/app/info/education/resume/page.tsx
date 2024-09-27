@@ -4,7 +4,10 @@ import Link from "next/link";
 import Style from "./resume.module.css";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import ModalPage from "@/components/Modal/page";
 const ResumePage = () => {
+  const [showModal, setShowModal] = useState<boolean>(false);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -40,13 +43,14 @@ const ResumePage = () => {
             >
               {/* --------------- */}
               <div className="  flex justify-end items-center w-full  ">
-                <a
-                  href={"/education/hirock_resume.pdf"}
-                  download
-                  className=" block w-fit bg-red-600 px-5 max-sm:px-2 py-3 max-sm:py-2 max-sm:text-sm rounded-md  hover:bg-red-700 active:bg-red-800"
+                <button
+                  className=" bg-red-600 px-5 max-sm:px-2 py-3 max-sm:py-2 max-sm:text-sm rounded-md  hover:bg-red-700 active:bg-red-800"
+                  onClick={(e) => {
+                    e.stopPropagation(), setShowModal(true);
+                  }}
                 >
                   Download PDF
-                </a>
+                </button>
               </div>
               {/* ------------------ */}
               <Link
@@ -124,6 +128,14 @@ const ResumePage = () => {
           </div>
         </motion.div>
       </div>
+      <ModalPage
+        showModal={showModal}
+        setShowModal={setShowModal}
+        InnerHtmlData={{
+          pdfLink:
+            "  <a href={'/education/hirock_resume.pdf'} download className=' '> Download PDF</a>",
+        }}
+      />
     </main>
   );
 };

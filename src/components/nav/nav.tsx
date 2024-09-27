@@ -14,16 +14,10 @@ import { CiSettings } from "react-icons/ci";
 import { IoIosLogOut } from "react-icons/io";
 import { CiLogin } from "react-icons/ci";
 import { RxDashboard } from "react-icons/rx";
-import { useSession } from "next-auth/react";
-import { signOut } from "next-auth/react";
-import axios from "axios";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-import toast from "react-hot-toast";
-
+import ModalPage from "../Modal/page";
 const Nav = () => {
-  const router = useRouter();
-  const NextAuthSession = useSession();
+  const [showModal, setShowModal] = useState<boolean>(false);
   const dispatch = useDispatch();
   const loggedApi = useSelector((state: any) => state?.Slice?.data);
   const loggedUser = loggedApi?.loggedUser;
@@ -34,25 +28,6 @@ const Nav = () => {
     });
   };
 
-  const logOut = async () => {
-    try {
-      if (NextAuthSession?.status == "authenticated") {
-        signOut({ redirect: true, callbackUrl: "/ " });
-        toast.success("auth Logout successful!");
-      } else {
-        const logout = await axios.get("/pages/api/user/logout");
-        if (logout?.data.success) {
-          toast.success("Logout successful!");
-          router.push("/");
-          router.refresh();
-        } else {
-          toast.success("Logout not successful!");
-        }
-      }
-    } catch (error: any) {
-      throw new Error(error);
-    }
-  };
   useEffect(() => {
     windowEvent();
     dispatch(AllApiHandler());
@@ -179,12 +154,12 @@ const Nav = () => {
                   </li>
                 ) : null}
                 {loggedUser ? (
-                  <li
-                    onClick={() => {
-                      logOut();
-                    }}
-                  >
-                    <button>
+                  <li>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation(), setShowModal(true);
+                      }}
+                    >
                       <IoIosLogOut size={25} className=" " />
                       <div className="">Logout</div>
                     </button>
@@ -215,6 +190,11 @@ const Nav = () => {
           </div>
         </div>
       </div>
+      <ModalPage
+        showModal={showModal}
+        setShowModal={setShowModal}
+        InnerHtmlData={{ logout: `<button>Logout</button>` }}
+      />
     </nav>
   );
 };

@@ -35,37 +35,44 @@ export default function Education() {
           {/* ---------------------------- */}
           <div className=" grid grid-cols-4 max-md:grid-cols-2 gap-5  w-full">
             {Educations.map((item: any, index: any) => (
-              <Link href={item.link} key={index}>
-                <motion.div
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: index, duration: index }}
-                  className=" flex flex-col items-center"
-                >
-                  {/* btn-start */}
-                  <div className=" animate-pulse cursor-pointer rounded-full shadow-lg shadow-yellow-600">
-                    <div className=" group  relative w-32 h-52 max-sm:w-28 rounded-full overflow-hidden bg-white p-2 flex items-center justify-center ">
-                      <div className="absolute flex items-center justify-center w-full h-full bg-slate-800/80 active:bg-slate-800/40 invisible group-hover:visible transition-all  ">
+              <motion.div
+                key={index}
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: index, duration: index }}
+                className=" flex flex-col items-center"
+              >
+                {/* btn-start */}
+
+                <div className=" animate-pulse cursor-pointer rounded-full shadow-lg shadow-yellow-600">
+                  <div className=" group  relative w-32 h-52 max-sm:w-28 rounded-full overflow-hidden bg-white p-2 flex items-center justify-center ">
+                    <div className="absolute flex items-center justify-center w-full h-full bg-slate-800/80 active:bg-slate-800/40 invisible group-hover:visible transition-all  ">
+                      <Link
+                        href={item.link}
+                        className=" h-full w-full flex items-center justify-center"
+                      >
                         <h1 className="  text-red-500 text-xl font-extrabold  ">
                           Open it
                         </h1>
-                      </div>
-                      <Image
-                        src={"/background_images/education_imag_1.jpg"}
-                        alt="me"
-                        width={500}
-                        height={500}
-                        priority
-                        className=" h-full object-cover w-full rounded-full"
-                      />
+                      </Link>
                     </div>
+
+                    <Image
+                      src={"/background_images/education_imag_1.jpg"}
+                      alt="me"
+                      width={500}
+                      height={500}
+                      priority
+                      className=" h-full object-cover w-full rounded-full"
+                    />
                   </div>
-                  {/* btn-end */}
-                  <h1 className=" text-center mt-5  font-extrabold">
-                    {item.title}
-                  </h1>
-                </motion.div>
-              </Link>
+                </div>
+
+                {/* btn-end */}
+                <h1 className=" text-center mt-5  font-extrabold">
+                  {item.title}
+                </h1>
+              </motion.div>
             ))}
           </div>
 
@@ -111,7 +118,7 @@ export default function Education() {
             initial={{ x: 100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 1, duration: 0.8 }}
-            className=" w-1/2 max-lg:w-full shadow-xl shadow-yellow-600 rounded-md flex justify-center items-center "
+            className=" w-1/2 max-lg:w-full rounded-md flex justify-center items-center "
           >
             <Image
               priority

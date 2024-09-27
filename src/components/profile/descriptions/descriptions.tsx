@@ -11,6 +11,7 @@ interface FormDataType {
   descriptions: string;
 }
 const Descriptions = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [description, setDescription] = useState({
     userId: "",
     descriptions: "",
@@ -25,6 +26,7 @@ const Descriptions = () => {
   } = useForm<FormDataType>();
 
   const onDesCriptions: SubmitHandler<FormDataType> = async (data) => {
+    setIsLoading(true);
     try {
       data.userId = description.userId;
       const request = await axios.post("/pages/api/user/profileUpdate", data);
@@ -32,6 +34,7 @@ const Descriptions = () => {
         toast.success("Update successful!");
         setTimeout(() => {
           setEditFlag(false);
+          setIsLoading(false);
         }, 1000);
       }
     } catch (error: any) {
@@ -77,7 +80,7 @@ const Descriptions = () => {
           </button>
         </div>
 
-        {description?.descriptions !== "" && !editFlag? (
+        {description?.descriptions !== "" && !editFlag ? (
           <p className=" mt-2 max-sm:text-sm opacity-80 pr-10">
             {description?.descriptions}
           </p>
@@ -111,9 +114,13 @@ const Descriptions = () => {
             <div className="">
               <button
                 type="submit"
-                className={` bg-gradient-to-tl to-red-400 via-red-600 from-red-400 h-12 rounded-md shadow-lg hover:scale-105 active:scale-95  w-1/2 max-sm:w-full text-white`}
+                className={` flex items-center justify-center bg-gradient-to-tl to-red-400 via-red-600 from-red-400 h-12 rounded-md shadow-lg hover:scale-105 active:scale-95  w-1/2 max-sm:w-full text-white`}
               >
-                Submit
+                {!isLoading ? (
+                  "Submit"
+                ) : (
+                  <div className=" loading loading-sm"></div>
+                )}
               </button>
             </div>
           </form>
